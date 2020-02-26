@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace BFM1_Inventory_System
 {
-    class Inhouse
+    class Inhouse : Part
     {
         public int MachineID { get; set; }
 
-        public Inhouse(int machineID)
+           public Inhouse(string name, int instock, decimal price,  int min, int max, int machineid) : base( name, instock, price, min, max) 
         {
-            MachineID = machineID;
+            MachineID = machineid;
         }
+
+        public Inhouse(int partid, string name, int instock, decimal price, int min, int max, int machineid) : base( partid ,name, instock, price, min, max)
+        {
+            MachineID = machineid;
+        }   
+
     }
 }

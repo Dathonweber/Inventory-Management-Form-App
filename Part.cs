@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace BFM1_Inventory_System
 {
-    class Part
+     abstract class Part
     {
-        private DataGridViewSelectedRowCollection selectedRows;
+        public static int AvailableID;
 
         public int PartID { get; set; }
         public string Name { get; set; }
@@ -18,9 +18,10 @@ namespace BFM1_Inventory_System
         public int Min { get; set; }
         public int Max { get; set; }
 
-        public Part(int partID, string name, decimal price, int instock, int min, int max)
+        
+        public Part(string name, int instock, decimal price, int min, int max)
         {
-            PartID = partID;
+            PartID = AvailableID++;
             Name = name;
             Price = price;
             InStock = instock;
@@ -29,9 +30,16 @@ namespace BFM1_Inventory_System
 
         }
 
-        public Part(DataGridViewSelectedRowCollection selectedRows)
+        public Part(int partID, string name, int instock, decimal price, int min, int max)
         {
-            this.selectedRows = selectedRows;
+            PartID = partID;
+            Name = name;
+            Price = price;
+            InStock = instock;
+            Min = min;
+            Max = max;
         }
+
+       
     }
 }

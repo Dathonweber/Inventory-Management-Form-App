@@ -28,34 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.SearchBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.PartsGridView = new System.Windows.Forms.DataGridView();
             this.Exit_Btn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.SearchTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.ModPartBtn = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button8 = new System.Windows.Forms.Button();
+            this.ProductAddBtn = new System.Windows.Forms.Button();
+            this.ProdModBtn = new System.Windows.Forms.Button();
+            this.ProdDeleteBtn = new System.Windows.Forms.Button();
+            this.ProdSearchBox = new System.Windows.Forms.TextBox();
+            this.ProdSearchBtn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.ProductsGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.PartsGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProductsGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // SearchBtn
             // 
-            this.button1.Location = new System.Drawing.Point(241, 59);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 20);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
+            this.SearchBtn.Location = new System.Drawing.Point(241, 59);
+            this.SearchBtn.Name = "SearchBtn";
+            this.SearchBtn.Size = new System.Drawing.Size(66, 20);
+            this.SearchBtn.TabIndex = 0;
+            this.SearchBtn.Text = "Search";
+            this.SearchBtn.UseVisualStyleBackColor = true;
+            this.SearchBtn.Click += new System.EventHandler(this.SearchBtn_Click);
             // 
             // label1
             // 
@@ -86,7 +87,7 @@
             this.PartsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.PartsGridView.Size = new System.Drawing.Size(443, 150);
             this.PartsGridView.TabIndex = 5;
-            this.PartsGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.PartsGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PartsGridView_CellClick);
             // 
             // Exit_Btn
             // 
@@ -98,13 +99,13 @@
             this.Exit_Btn.UseVisualStyleBackColor = true;
             this.Exit_Btn.Click += new System.EventHandler(this.button5_Click);
             // 
-            // textBox1
+            // SearchTxtBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(334, 59);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(134, 20);
-            this.textBox1.TabIndex = 8;
+            this.SearchTxtBox.Location = new System.Drawing.Point(334, 59);
+            this.SearchTxtBox.Multiline = true;
+            this.SearchTxtBox.Name = "SearchTxtBox";
+            this.SearchTxtBox.Size = new System.Drawing.Size(134, 20);
+            this.SearchTxtBox.TabIndex = 8;
             // 
             // label2
             // 
@@ -115,15 +116,15 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "Parts";
             // 
-            // button2
+            // ModPartBtn
             // 
-            this.button2.Location = new System.Drawing.Point(362, 267);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(50, 23);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Modify";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.ModPartBtn.Location = new System.Drawing.Point(362, 267);
+            this.ModPartBtn.Name = "ModPartBtn";
+            this.ModPartBtn.Size = new System.Drawing.Size(50, 23);
+            this.ModPartBtn.TabIndex = 10;
+            this.ModPartBtn.Text = "Modify";
+            this.ModPartBtn.UseVisualStyleBackColor = true;
+            this.ModPartBtn.Click += new System.EventHandler(this.ModPartBtn_Click);
             // 
             // button3
             // 
@@ -135,51 +136,53 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button5
+            // ProductAddBtn
             // 
-            this.button5.Location = new System.Drawing.Point(785, 267);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(50, 23);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Add";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click_1);
+            this.ProductAddBtn.Location = new System.Drawing.Point(785, 267);
+            this.ProductAddBtn.Name = "ProductAddBtn";
+            this.ProductAddBtn.Size = new System.Drawing.Size(50, 23);
+            this.ProductAddBtn.TabIndex = 14;
+            this.ProductAddBtn.Text = "Add";
+            this.ProductAddBtn.UseVisualStyleBackColor = true;
+            this.ProductAddBtn.Click += new System.EventHandler(this.button5_Click_1);
             // 
-            // button6
+            // ProdModBtn
             // 
-            this.button6.Location = new System.Drawing.Point(841, 267);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(50, 23);
-            this.button6.TabIndex = 13;
-            this.button6.Text = "Modify";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.ProdModBtn.Location = new System.Drawing.Point(841, 267);
+            this.ProdModBtn.Name = "ProdModBtn";
+            this.ProdModBtn.Size = new System.Drawing.Size(50, 23);
+            this.ProdModBtn.TabIndex = 13;
+            this.ProdModBtn.Text = "Modify";
+            this.ProdModBtn.UseVisualStyleBackColor = true;
+            this.ProdModBtn.Click += new System.EventHandler(this.button6_Click);
             // 
-            // button7
+            // ProdDeleteBtn
             // 
-            this.button7.Location = new System.Drawing.Point(896, 267);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(50, 23);
-            this.button7.TabIndex = 12;
-            this.button7.Text = "Delete";
-            this.button7.UseVisualStyleBackColor = true;
+            this.ProdDeleteBtn.Location = new System.Drawing.Point(896, 267);
+            this.ProdDeleteBtn.Name = "ProdDeleteBtn";
+            this.ProdDeleteBtn.Size = new System.Drawing.Size(50, 23);
+            this.ProdDeleteBtn.TabIndex = 12;
+            this.ProdDeleteBtn.Text = "Delete";
+            this.ProdDeleteBtn.UseVisualStyleBackColor = true;
+            this.ProdDeleteBtn.Click += new System.EventHandler(this.ProdDeleteBtn_Click);
             // 
-            // textBox2
+            // ProdSearchBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(812, 59);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(134, 20);
-            this.textBox2.TabIndex = 16;
+            this.ProdSearchBox.Location = new System.Drawing.Point(812, 59);
+            this.ProdSearchBox.Multiline = true;
+            this.ProdSearchBox.Name = "ProdSearchBox";
+            this.ProdSearchBox.Size = new System.Drawing.Size(134, 20);
+            this.ProdSearchBox.TabIndex = 16;
             // 
-            // button8
+            // ProdSearchBtn
             // 
-            this.button8.Location = new System.Drawing.Point(720, 58);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(66, 20);
-            this.button8.TabIndex = 17;
-            this.button8.Text = "Search";
-            this.button8.UseVisualStyleBackColor = true;
+            this.ProdSearchBtn.Location = new System.Drawing.Point(720, 58);
+            this.ProdSearchBtn.Name = "ProdSearchBtn";
+            this.ProdSearchBtn.Size = new System.Drawing.Size(66, 20);
+            this.ProdSearchBtn.TabIndex = 17;
+            this.ProdSearchBtn.Text = "Search";
+            this.ProdSearchBtn.UseVisualStyleBackColor = true;
+            this.ProdSearchBtn.Click += new System.EventHandler(this.ProdSearchBtn_Click);
             // 
             // label3
             // 
@@ -201,7 +204,7 @@
             this.ProductsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ProductsGridView.Size = new System.Drawing.Size(446, 150);
             this.ProductsGridView.TabIndex = 19;
-            this.ProductsGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
+            this.ProductsGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProductsGridView_CellClick);
             // 
             // MainScreen
             // 
@@ -210,23 +213,22 @@
             this.ClientSize = new System.Drawing.Size(964, 375);
             this.Controls.Add(this.ProductsGridView);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.ProdSearchBtn);
+            this.Controls.Add(this.ProdSearchBox);
+            this.Controls.Add(this.ProductAddBtn);
+            this.Controls.Add(this.ProdModBtn);
+            this.Controls.Add(this.ProdDeleteBtn);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.ModPartBtn);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.SearchTxtBox);
             this.Controls.Add(this.Exit_Btn);
             this.Controls.Add(this.PartsGridView);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SearchBtn);
             this.Name = "MainScreen";
             this.Text = "Main Screen";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PartsGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProductsGridView)).EndInit();
             this.ResumeLayout(false);
@@ -236,19 +238,19 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button SearchBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button DeleteBtn;
         private System.Windows.Forms.Button Exit_Btn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox SearchTxtBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button ModPartBtn;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button ProductAddBtn;
+        private System.Windows.Forms.Button ProdModBtn;
+        private System.Windows.Forms.Button ProdDeleteBtn;
+        private System.Windows.Forms.TextBox ProdSearchBox;
+        private System.Windows.Forms.Button ProdSearchBtn;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView ProductsGridView;
         public System.Windows.Forms.DataGridView PartsGridView;

@@ -12,34 +12,126 @@ namespace BFM1_Inventory_System
 {
     public partial class Modify_Part : Form
     {
+        bool isInhouse;
+
+        private void CheckRadioButton()
+        {
+            int number;
+            if (string.IsNullOrWhiteSpace(TxtPartSource.Text) || (isInhouse && !Int32.TryParse(TxtPartSource.Text, out number)))
+            {
+                TxtPartSource.BackColor = System.Drawing.Color.Salmon;
+            }
+            else
+            {
+                TxtPartSource.BackColor = System.Drawing.Color.White;
+            }
+            
+        }
+
         public Modify_Part()
         {
+            
             InitializeComponent();
+            TxtPartID.Text = Inventory.CurrentPart.PartID.ToString();
+            TxtName.Text = Inventory.CurrentPart.Name;
+            TxtInventory.Text = Inventory.CurrentPart.InStock.ToString();
+            TxtPrice.Text = Inventory.CurrentPart.Price.ToString();
+            TxtMin.Text = Inventory.CurrentPart.Min.ToString();
+            TxtMax.Text = Inventory.CurrentPart.Max.ToString();
+            if (Inventory.CurrentPart is Inhouse)
+            {
+                Inhouse e = Inventory.CurrentPart as Inhouse;
+                TxtPartSource.Text = e.MachineID.ToString();
+                isInhouse = true;
+                InHouseRadio.Checked = true;
+            }
+            else
+            {
+                Outsourced e = Inventory.CurrentPart as Outsourced;
+                TxtPartSource.Text = e.CompanyName;
+                isInhouse = false;
+                OutsourcedRadio.Checked = true;
+                SourceLabel.Location = new Point(25, 298);
+            }
         }
 
-        private TextBox MachineIdTextbox = new TextBox();
-        private Label MachineIdLabel = new Label();
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void OutsourcedRadio_CheckedChanged(object sender, EventArgs e)
         {
-            MachineIdTextbox.Size = new Size(100, 20);
-            MachineIdTextbox.Location = new Point(111, 288);
-            this.Controls.Add(MachineIdTextbox);
-
-            MachineIdLabel.Size = new Size(62, 13);
-            MachineIdLabel.Location = new Point(40, 288);
-            MachineIdLabel.Text = "Machine ID";
-            this.Controls.Add(MachineIdLabel);
+            SourceLabel.Text = "Company Name";
+            SourceLabel.Location = new Point(25, 298);
+            isInhouse = false;
+            CheckRadioButton();
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void InHouseRadio_CheckedChanged(object sender, EventArgs e)
         {
-            this.Controls.Remove(MachineIdLabel);
-            this.Controls.Remove(MachineIdTextbox);
+            SourceLabel.Text = "Machine ID";
+            isInhouse = true;
+            CheckRadioButton();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Form.ActiveForm.Close();
         }
+
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (isInhouse == true)
+                {
+                    Part part = new Inhouse(Convert.ToInt32(TxtPartID.Text), TxtName.Text, Convert.ToInt32(TxtInventory.Text), Convert.ToDecimal(TxtPrice.Text),
+                        Convert.ToInt32(TxtMin.Text), Convert.ToInt32(TxtMax.Text), Convert.ToInt32(TxtPartSource.Text));
+
+                    Inventory.UpdatePart(Inventory.CurrentPartIndex, part);
+                    Form.ActiveForm.Close();
+                }
+                else if (isInhouse == false)
+                {
+                    Part part = new Outsourced(Convert.ToInt32(TxtPartID.Text), TxtName.Text, Convert.ToInt32(TxtInventory.Text), Convert.ToDecimal(TxtPrice.Text),
+                        Convert.ToInt32(TxtMin.Text), Convert.ToInt32(TxtMax.Text), TxtPartSource.Text);
+                    Inventory.UpdatePart(Inventory.CurrentPartIndex, part);
+                    Form.ActiveForm.Close();
+                }
+            }
+            catch (FormatException FormatException) 
+            {
+                MessageBox.Show(FormatException.Message, "Format Exception",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+           
+        }
+
+        private void TxtName_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TxtName.Text))
+            {
+                TxtName.BackColor = System.Drawing.Color.Salmon;
+            }
+            else
+            {
+                TxtName.BackColor = System.Drawing.Color.White;
+            }
+        }
+
+        private void TxtInventory_TextChanged(object sender, EventArgs e)
+        {
+            
+            if ( string.IsNullOrWhiteSpace(TxtInventory.Text))
+            {
+                TxtInventory.BackColor = System.Drawing.Color.Salmon;
+            }
+            else
+            {
+                TxtInventory.BackColor = System.Drawing.Color.White;
+            }
+        }
+
+        private void TxtPartSource_TextChanged(object sender, EventArgs e)
+        {
+            CheckRadioButton();
+        }
+
+       
     }
 }

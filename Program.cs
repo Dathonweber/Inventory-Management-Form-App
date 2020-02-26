@@ -14,12 +14,10 @@ namespace BFM1_Inventory_System
         [STAThread]
         static void Main()
         {
-            Part Wheel = new Part(15, "Wheel", 25, 20,5,50 );
-            Inventory.AddProduct(new Product(5, "Blue Bike", 100,5,1,10));
-            Inventory.AddProduct(new Product(4, "Red bike", 100, 5, 1, 10));
-            Product.addAssociatedPart(new Part(150, "Frame", 100, 10, 1, 10));
-            Inventory.AddPart(Wheel);
-            Inventory.AddPart(new Part(01, "Chain", 20, 20, 1, 25));
+            Inventory.AddPart(new Inhouse("Tire",15,10,1,25,465));
+            Inventory.AddPart(new Outsourced("Seat",15,8,1,25, "Davids Seats"));
+            Inventory.AddProduct(new Product("Blue Bike", 5, 100, 1, 10));
+            Inventory.AddProduct(new Product("Red bike", 5, 100, 1, 10));
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainScreen());

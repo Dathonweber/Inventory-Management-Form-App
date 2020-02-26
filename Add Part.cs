@@ -12,58 +12,77 @@ namespace BFM1_Inventory_System
 {
     public partial class Add_Part : Form
     {
-        private TextBox MachineIdTextbox = new TextBox();
-        private Label OutsourcedLabel = new Label();
+        bool isInhouse;
         public Add_Part()
         {
             InitializeComponent();
+
            
         }
 
-        private void Add_Part_Load(object sender, EventArgs e)
+        private void CheckRadioButton()
         {
-            this.OutsourcedLabel.Text = "OutSourced ID";
-            this.Controls.Add(OutsourcedLabel);
-            OutsourcedLabel.Size = new Size(85, 13);
-            
-
+            int number;
+            if (string.IsNullOrWhiteSpace(PartSourceTxt.Text) || (isInhouse && !Int32.TryParse(PartSourceTxt.Text, out number)))
+            {
+                PartSourceTxt.BackColor = System.Drawing.Color.Salmon;
+              
+            }
+            else
+            {
+                PartSourceTxt.BackColor = System.Drawing.Color.White;
+            }
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Form.ActiveForm.Close();
         }
-
-        public void button2_Click(object sender, EventArgs e)
+  
+        private void OutsourcedRadio_CheckedChanged(object sender, EventArgs e)
         {
-            int ID = int.Parse(IDTextBox.Text);
-            string Name = NameTextBox.Text;
-            decimal Price = decimal.Parse(PriceTextBox.Text);
-            int InStock = int.Parse(InventoryTextBox.Text);
-            int Max = int.Parse(MaxTextBox.Text);
-            int Min = int.Parse(MinTextBox.Text);
-            Inventory.AddPart(new Part(ID,Name,Price,InStock,Max,Min));
-            Form.ActiveForm.Close();
-
+            SourceLabel.Text = "Company Name";
+            this.SourceLabel.Location = new Point(50, 291);
+            isInhouse = false;
+            CheckRadioButton();
         }
-       
         
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+       private void InhouseRadio_CheckedChanged(object sender, EventArgs e)
         {
-            OutsourcedLabel.Text = "Company Name:";     
+            SourceLabel.Text = "Machine ID";
+            isInhouse = true;
+            CheckRadioButton();
+        }
+        public void Save(object sender, EventArgs e)
+        {
+            
+            if (isInhouse)
+            {
+                
+                string Name = NameTextBox.Text;
+                decimal Price = decimal.Parse(PriceTextBox.Text);
+                int InStock = int.Parse(InventoryTextBox.Text);
+                int Max = int.Parse(MaxTextBox.Text);
+                int Min = int.Parse(MinTextBox.Text);
+                int MachineID = int.Parse(PartSourceTxt.Text);       
+                List.AllParts.Add(new Inhouse(Name,InStock,Price,Min,Max,MachineID));
+                Form.ActiveForm.Close();
+            } 
+            else
+            {
+                
+                string Name = NameTextBox.Text;
+                int InStock = int.Parse(InventoryTextBox.Text);
+                decimal Price = decimal.Parse(PriceTextBox.Text);
+                int Max = int.Parse(MaxTextBox.Text);
+                int Min = int.Parse(MinTextBox.Text);
+                string CompanyName = PartSourceTxt.Text;
+                List.AllParts.Add(new Outsourced( Name, InStock, Price, Min, Max, CompanyName));
+                Form.ActiveForm.Close();
+            }
+
         }
 
-        
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            MachineIdTextbox.Size = new Size(100, 20);
-            MachineIdTextbox.Location = new Point(137, 292);
-            this.Controls.Add(MachineIdTextbox);
-            OutsourcedLabel.Location = new Point(45, 292);
-            OutsourcedLabel.Text = "Outsourced ID:";
-
-        }
-
-       
     }
 }

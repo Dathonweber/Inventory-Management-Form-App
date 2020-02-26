@@ -15,40 +15,64 @@ namespace BFM1_Inventory_System
         public Add_Product()
         {
             InitializeComponent();
-        }
-
-        private void Add_Product_Load(object sender, EventArgs e)
-        {
             AssociatedPartsGridView.DataSource = Product.AssociatedParts;
-            AllPartsGridView.DataSource = Inventory.AllParts;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int ID = int.Parse(IdTextBox.Text);
-                string Name = NameTextBox.Text;
-                decimal Price = Decimal.Parse(PriceTextBox.Text);
-                int InStock = int.Parse(InStockTextBox.Text);
-                int Max = int.Parse(MaxTextBox.Text);
-                int Min = int.Parse(MinTextBox.Text);
-
-                Inventory.AddProduct(new Product(ID, Name, Price, InStock, Max, Min));
-                Form.ActiveForm.Close();
-            }
-
-            catch(Exception formatException)
-            {
-                
-                MessageBox.Show(formatException.Message,"Format Exception",MessageBoxButtons.OK,MessageBoxIcon.Error);
-               
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
+            AllPartsGridView.DataSource = List.AllParts;
+            AllPartsGridView.DefaultCellStyle.SelectionBackColor = AllPartsGridView.DefaultCellStyle.BackColor;
+            AllPartsGridView.DefaultCellStyle.SelectionForeColor = AllPartsGridView.DefaultCellStyle.ForeColor;
+            AllPartsGridView.AutoGenerateColumns = false;
+            AllPartsGridView.ColumnHeadersDefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+            AllPartsGridView.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+            AllPartsGridView.RowHeadersVisible = false;
             
+        }
+
+        private void ProdSaveBtn_Click(object sender, EventArgs e)
+        {
+            String Name = NameTextBox.Text;
+            int Instock = int.Parse(InStockTextBox.Text);
+            decimal Price = Decimal.Parse(PriceTextBox.Text);
+            int Min = int.Parse(MinTextBox.Text);
+            int Max = int.Parse(MaxTextBox.Text);
+            Inventory.AddProduct(new Product(Name, Instock, Price, Min, Max));
+            Form.ActiveForm.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form.ActiveForm.Close();
+        }
+
+        private void AllPartsGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Inventory.CurrentPartIndex = e.RowIndex;
+            Inventory.CurrentPart = Product.lookupAssociatedPart(Inventory.CurrentPartIndex);
+            AllPartsGridView.DefaultCellStyle.SelectionBackColor = Color.Yellow;
+        }
+
+        private void AssociatedDeleteBtn_Click(object sender, EventArgs e)
+        {
+            if (Inventory.CurrentPartIndex >= 0)
+            {
+                if (MessageBox.Show("Are you sure you want to remove this Part?", "Remove Part", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Product.removeAssociatedPart(Inventory.CurrentPartIndex);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please Select Something");
+            }
+        }
+
+        private void AssociatedPartsGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Inventory.CurrentPartIndex = e.RowIndex;
+            Inventory.CurrentPart = Product.lookupAssociatedPart(Inventory.CurrentPartIndex);
+        }
+
+        private void AllPartsAddBtn_Click(object sender, EventArgs e)
+        {
+            Product.AssociatedParts.Add(Inventory.CurrentPart);
         }
     }
 }
